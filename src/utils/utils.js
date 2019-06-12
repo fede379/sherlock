@@ -23,14 +23,14 @@ exports.sherlock = (s) => {
         // mapping variables for conditions
         let [f1, f2] = mapFreqCont.keys()
         let [f1Cont, f2Cont] = mapFreqCont.values()
-
+        // f is 1 and occurs only once
         if ((f1 === 1 && f1Cont === 1) || (f2 === 1 && f2Cont === 1)) {
             hist.isValid = true
             f1 === 1 && f1Cont === 1 ? hist.output = getValidOutput(s, frequencies, f1) : hist.output = getValidOutput(s, frequencies, f2)
             return hist
-        } else if ((Math.abs(f1 - f2) === 1) && (f1Cont === 1 || f2Cont === 1)) {
+        } else if ((Math.abs(f1 - f2) === 1) && ((f1 > f2 && f1Cont === 1) || (f2 > f1 && f2Cont === 1))) { // difference between frequencies is 1 and the frequency with count 1 is greater            
             hist.isValid = true
-            f1Cont === 1 ? hist.output = getValidOutput(s, frequencies, f1) : hist.output = getValidOutput(s, frequencies, f2)
+            f1 > f2 ? hist.output = getValidOutput(s, frequencies, f1) : hist.output = getValidOutput(s, frequencies, f2)
             return hist
         } else {
             return hist
@@ -48,6 +48,14 @@ getFrequencies = (array) => {
 getValidOutput = (str, freqs, f) => {
     for (let [key, value] of freqs.entries()) {
         if (value === f)
-          return str.replace(key, '')
-      }
+            return removeByIndex(str, str.lastIndexOf(key))
+    }
+}
+
+removeByIndex = (str, index) => {
+    if (index == 0) {
+        return str.slice(1)
+    } else {
+        return str.slice(0, index - 1) + str.slice(index);
+    }
 }

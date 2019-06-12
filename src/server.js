@@ -15,6 +15,7 @@ app.set('view engine', 'ejs')
 
 // middlewares
 app.use(favicon(path.join(__dirname, '/../public', 'img', 'favicon.ico')))
+app.use('/', express.static(__dirname + './../public'))
 app.use('/bootstrap', express.static(__dirname + './../node_modules/bootstrap/dist/css'))
 app.use('/bootstrap/js', express.static(__dirname + './../node_modules/bootstrap/dist/js'))
 app.use('/jquery', express.static(__dirname + './../node_modules/jquery/dist'))
