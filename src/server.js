@@ -3,6 +3,7 @@ const express = require('express'),
     cors = require('cors'),
     bodyParser = require('body-parser'),
     logger = require('morgan'),
+    favicon = require('serve-favicon'),
     config = require('./config/config'),
     app = express()
 
@@ -13,6 +14,7 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
 // middlewares
+app.use(favicon(path.join(__dirname, '/../public', 'img', 'favicon.ico')))
 app.use('/bootstrap', express.static(__dirname + './../node_modules/bootstrap/dist/css'))
 app.use('/bootstrap/js', express.static(__dirname + './../node_modules/bootstrap/dist/js'))
 app.use('/jquery', express.static(__dirname + './../node_modules/jquery/dist'))
