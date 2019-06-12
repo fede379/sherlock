@@ -26,11 +26,10 @@ exports.sherlock = (s) => {
         // f is 1 and occurs only once
         if ((f1 === 1 && f1Cont === 1) || (f2 === 1 && f2Cont === 1)) {
             hist.isValid = true
-            f1 === 1 && f1Cont === 1 ? hist.output = getValidOutput(s, frequencies, f1) : hist.output = getValidOutput(s, frequencies, f2)
+            hist.output = getValidOutput(s, frequencies, (f1 === 1 && f1Cont === 1 ? f1 : f2))
             return hist
         } else if ((Math.abs(f1 - f2) === 1) && ((f1 > f2 && f1Cont === 1) || (f2 > f1 && f2Cont === 1))) { // difference between frequencies is 1 and the frequency with count 1 is greater            
             hist.isValid = true
-            // f1 > f2 ? hist.output = getValidOutput(s, frequencies, f1) : hist.output = getValidOutput(s, frequencies, f2)
             hist.output = getValidOutput(s, frequencies, (f1 > f2 ? f1 : f2))
             return hist
         } else {
