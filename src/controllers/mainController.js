@@ -7,13 +7,11 @@ exports.viewIndex = async (req, res) => {
     res.render('index', { history, moment })
 }
 
-exports.addString = (req, res) => {
+exports.addString = async (req, res) => {
     let { string } = req.body
     if (string.trim().length !== 0) {
         let hist = new _History(utils.sherlock(string))
-        hist.save(function (err, h) {
-            if (err) console.log(err)
-        })
+        await hist.save()
     }
     res.redirect('/')
 }
