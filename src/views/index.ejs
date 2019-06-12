@@ -1,58 +1,59 @@
 <% include partials/_header %>
-<div class="container">
 
-    <div class="row">
-        <!--FORM-->
-        <div class="col-md-5">
-            <div class="card">
-                <div class="card-body">
-                    <form action="/check" method="post">
-                        <div class="form-group">
-                            <label for="string">Input String</label>
-                            <input class="form-control" type="text" name="string" placeholder="Title">
-                        </div>
-                        <button class="btn btn-primary" type="submit">
-                            Check
-                        </button>
-                    </form>
+    <div class="container">
+
+        <div class="row">
+            <!--FORM-->
+            <div class="col-md-5">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/add" method="post">
+                            <div class="form-group">
+                                <label for="string">Input String</label>
+                                <input class="form-control" type="text" name="string" placeholder="Title">
+                            </div>
+                            <button class="btn btn-primary" type="submit">
+                                Check
+                            </button>
+                        </form>
+                    </div>
                 </div>
+            </div>
+
+            <!-- LIST -->
+            <div class="col-md-7">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>DateTime</th>
+                            <th>Input</th>
+                            <th>Output</th>
+                            <th>Valid</th>
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for(var i=0; i < history.length; i++) { %>
+                        <tr>
+                            <td><%= moment(history[i].createdAt).format('DD/MM/YYYY h:mm a') %></td>
+                            <td><strong><%= history[i].input %></strong></td>
+                            <td><%= history[i].output %></td>
+                            <% if(history[i].isValid) { %>
+                            <td>YES</td>
+                            <% } else { %>
+                            <td>NO</td>
+                            <% } %>
+                            <td>
+                                <a href="/delete/<%= history[i]._id %>" class="btn btn-danger">
+                                    Delete
+                                </a>
+                            </td>
+                        </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+
             </div>
         </div>
 
-        <!-- LIST -->
-        <div class="col-md-7">
-            <table class="table table-bordered table-hover">
-                <thead>
-                    <tr>
-                        <th>DateTime</th>
-                        <th>Input</th>
-                        <th>Output</th>
-                        <th>Valid</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% for(var i=0; i < tasks.length; i++) { %>
-                    <tr>
-                        <td><%= i + 1%></td>
-                        <td><strong><%= tasks[i].title %></strong></td>
-                        <td><%= tasks[i].description %></td>
-                        <td>
-                            <a class="<%= tasks[i].status ? 'btn btn-success' : 'btn btn-dark'%>"
-                                href="/turn/<%= tasks[i]._id %>">Done</a>
-                            <a href="/delete/<%= tasks[i]._id %>" class="btn btn-danger">
-                                Delete
-                            </a>
-                            <a href="/edit/<%= tasks[i]._id %>" class="btn btn-info">
-                                Edit
-                            </a>
-                        </td>
-                    </tr>
-                    <% } %>
-                </tbody>
-            </table>
-
-        </div>
     </div>
-
-</div>
-
